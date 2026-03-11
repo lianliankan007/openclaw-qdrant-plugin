@@ -1,0 +1,19 @@
+{
+  "name": "openclaw-qdrant-plugin",
+  "version": "0.1.0",
+  "description": "OpenClaw Qdrant plugin for collection and point operations",
+  "type": "module",
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "qdrant",
+    "vector-database",
+    "rag"
+  ],
+  "license": "MIT",
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

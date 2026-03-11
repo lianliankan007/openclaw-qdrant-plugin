@@ -1,0 +1,64 @@
+{
+  "id": "qdrant",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "baseUrl": {
+        "type": "string",
+        "description": "Qdrant HTTP base URL, for example http://127.0.0.1:6333"
+      },
+      "apiKey": {
+        "type": "string",
+        "description": "Optional Qdrant API key"
+      },
+      "timeoutMs": {
+        "type": "integer",
+        "minimum": 1000,
+        "maximum": 120000,
+        "description": "HTTP timeout in milliseconds"
+      },
+      "defaultVectorSize": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Default vector size used when create_collection omits vectorSize"
+      },
+      "defaultDistance": {
+        "type": "string",
+        "enum": [
+          "Cosine",
+          "Dot",
+          "Euclid",
+          "Manhattan"
+        ],
+        "description": "Default distance metric used when create_collection omits distance"
+      },
+      "preferGrpc": {
+        "type": "boolean",
+        "description": "Reserved for future transport extension; REST is used today"
+      }
+    },
+    "required": [
+      "baseUrl"
+    ]
+  },
+  "uiHints": {
+    "baseUrl": {
+      "label": "Qdrant Base URL",
+      "placeholder": "http://127.0.0.1:6333"
+    },
+    "apiKey": {
+      "label": "Qdrant API Key",
+      "sensitive": true
+    },
+    "timeoutMs": {
+      "label": "Timeout (ms)"
+    },
+    "defaultVectorSize": {
+      "label": "Default Vector Size"
+    },
+    "defaultDistance": {
+      "label": "Default Distance"
+    }
+  }
+}
