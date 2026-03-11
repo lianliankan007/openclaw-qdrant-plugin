@@ -38,9 +38,7 @@
         "description": "Reserved for future transport extension; REST is used today"
       }
     },
-    "required": [
-      "baseUrl"
-    ]
+    "required": []
   },
   "uiHints": {
     "baseUrl": {

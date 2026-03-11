@@ -52,7 +52,9 @@ function readPluginConfig(api: OpenClawPluginApi): QdrantPluginConfig {
   const raw = (api.pluginConfig ?? {}) as JsonRecord;
   const baseUrl = typeof raw.baseUrl === "string" ? raw.baseUrl.trim() : "";
   if (!baseUrl) {
-    throw new Error("qdrant plugin requires plugins.entries.qdrant.config.baseUrl");
+    throw new Error(
+      "qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl (for example http://127.0.0.1:6333) to enable Qdrant tools.",
+    );
   }
 
   return {
