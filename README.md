@@ -90,7 +90,7 @@ openclaw plugins install <npm-package-name>
 典型 warning 如下：
 
 ```text
-qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl (for example http://127.0.0.1:6333) to enable Qdrant tools.
+qdrant: plugin installed but inactive. Set plugins.entries.openclaw-qdrant-plugin.config.baseUrl (for example http://127.0.0.1:6333) to enable Qdrant tools.
 ```
 
 ## 安装后如何在 OpenClaw 中配置
@@ -101,9 +101,9 @@ qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl
 {
   plugins: {
     enabled: true,
-    allow: ["qdrant"],
+    allow: ["openclaw-qdrant-plugin"],
     entries: {
-      qdrant: {
+      "openclaw-qdrant-plugin": {
         enabled: true,
         config: {
           baseUrl: "http://127.0.0.1:6333",
@@ -120,7 +120,7 @@ qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl
 
 说明：
 
-- `plugins.allow` 建议显式写成 `["qdrant"]`，避免自动加载不需要的第三方插件。
+- `plugins.allow` 建议显式写成 `["openclaw-qdrant-plugin"]`，避免自动加载不需要的第三方插件。
 - `baseUrl` 是真正启用插件的关键配置。
 - `apiKey` 只有在你的 Qdrant 实例启用了鉴权时才需要填写。
 - 其余字段都可以先用默认值。
@@ -138,7 +138,7 @@ qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl
   plugins: {
     enabled: true,
     entries: {
-      qdrant: {
+      "openclaw-qdrant-plugin": {
         enabled: true,
         config: {
           baseUrl: "http://127.0.0.1:6333",

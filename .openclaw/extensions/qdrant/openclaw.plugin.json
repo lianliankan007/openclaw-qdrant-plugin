@@ -1,5 +1,5 @@
 {
-  "id": "qdrant",
+  "id": "openclaw-qdrant-plugin",
   "configSchema": {
     "type": "object",
     "additionalProperties": false,

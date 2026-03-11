@@ -2,7 +2,7 @@
   plugins: {
     enabled: true,
     entries: {
-      qdrant: {
+      "openclaw-qdrant-plugin": {
         enabled: true,
         config: {
           baseUrl: "http://127.0.0.1:6333",

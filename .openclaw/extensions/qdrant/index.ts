@@ -53,7 +53,7 @@ function readPluginConfig(api: OpenClawPluginApi): QdrantPluginConfig {
   const baseUrl = typeof raw.baseUrl === "string" ? raw.baseUrl.trim() : "";
   if (!baseUrl) {
     throw new Error(
-      "qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl (for example http://127.0.0.1:6333) to enable Qdrant tools.",
+      "qdrant: plugin installed but inactive. Set plugins.entries.openclaw-qdrant-plugin.config.baseUrl (for example http://127.0.0.1:6333) to enable Qdrant tools.",
     );
   }
 
@@ -212,7 +212,7 @@ function buildScrollInput(params: JsonRecord): ScrollPointsInput {
 }
 
 const plugin = {
-  id: "qdrant",
+  id: "openclaw-qdrant-plugin",
   name: "Qdrant",
   description: "Qdrant vector database tools for OpenClaw",
   register(api: OpenClawPluginApi) {
