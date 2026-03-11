@@ -1,4 +1,5 @@
 type JsonObject = Record<string, unknown>;
+type PayloadSelector = boolean | string[] | JsonObject;
 
 export type QdrantPluginConfig = {
   baseUrl: string;
@@ -39,7 +40,7 @@ export type SearchPointsInput = {
   collection: string;
   queryVector: number[];
   limit?: number;
-  withPayload?: boolean | string[];
+  withPayload?: PayloadSelector;
   withVector?: boolean | string[];
   scoreThreshold?: number;
   filter?: JsonObject;
@@ -49,7 +50,7 @@ export type ScrollPointsInput = {
   collection: string;
   limit?: number;
   offset?: string | number;
-  withPayload?: boolean | string[];
+  withPayload?: PayloadSelector;
   withVector?: boolean | string[];
   filter?: JsonObject;
 };
@@ -142,14 +143,16 @@ export class QdrantClient {
   }
 
   searchPoints(input: SearchPointsInput) {
-    return this.request("POST", `/collections/${encodeURIComponent(input.collection)}/points/query`, {
+    const queryBody = {
       query: input.queryVector,
       limit: input.limit ?? 10,
       with_payload: input.withPayload ?? true,
       with_vector: input.withVector ?? false,
       score_threshold: input.scoreThreshold,
       filter: input.filter,
-    });
+    };
+
+    return this.requestWithLegacySearchFallback(input.collection, queryBody);
   }
 
   scrollPoints(input: ScrollPointsInput) {
@@ -199,6 +202,43 @@ export class QdrantClient {
       throw new QdrantError("Qdrant request failed", { cause: error });
     } finally {
       clearTimeout(timeout);
+    }
+  }
+
+  private async requestWithLegacySearchFallback<T = unknown>(
+    collection: string,
+    queryBody: {
+      query: number[];
+      limit: number;
+      with_payload: PayloadSelector;
+      with_vector: boolean | string[];
+      score_threshold?: number;
+      filter?: JsonObject;
+    },
+  ): Promise<T> {
+    try {
+      return await this.request<T>(
+        "POST",
+        `/collections/${encodeURIComponent(collection)}/points/query`,
+        queryBody,
+      );
+    } catch (error) {
+      if (!(error instanceof QdrantError) || error.status !== 404) {
+        throw error;
+      }
+
+      return this.request<T>(
+        "POST",
+        `/collections/${encodeURIComponent(collection)}/points/search`,
+        {
+          vector: queryBody.query,
+          limit: queryBody.limit,
+          with_payload: queryBody.with_payload,
+          with_vector: queryBody.with_vector,
+          score_threshold: queryBody.score_threshold,
+          filter: queryBody.filter,
+        },
+      );
     }
   }
 

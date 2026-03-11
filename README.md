@@ -207,7 +207,7 @@ qdrant: plugin installed but inactive. Set plugins.entries.qdrant.config.baseUrl
 - 当前环境没有真实 Qdrant 实例，未做联机验证
 - 当前环境没有完整 TS 构建链，未做 `tsc` 编译验证
 - `preferGrpc` 目前只是预留字段，实际仍然走 REST
-- 若目标 Qdrant 版本较旧，`/points/query` 可能需要兼容旧版搜索 endpoint
+- 已对旧版 Qdrant 增加 `/points/search` 回退，降低接口版本差异带来的失败概率
 
 ## 建议的下一步
 

@@ -146,7 +146,11 @@ export const qdrantQuerySchema = {
       description: "Optional offset for scroll.",
     },
     withPayload: {
-      anyOf: [{ type: "boolean" }, { type: "array", items: { type: "string" } }],
+      anyOf: [
+        { type: "boolean" },
+        { type: "array", items: { type: "string" } },
+        { type: "object", additionalProperties: true },
+      ],
       description: "Include payload in results.",
     },
     withVector: {
